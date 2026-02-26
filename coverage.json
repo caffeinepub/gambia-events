@@ -1,0 +1,76 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-26T09:52:44.914Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 3,
+    "implemented": 3,
+    "items": [
+      {
+        "id": "REQ-13",
+        "summary": "After a user completes Internet Identity login, automatically redirect them to the homepage (or their originally intended destination) without requiring any manual navigation step. If the user is new and has no profile yet, redirect to the profile setup flow first, then to the homepage after profile completion.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useInternetIdentity.ts",
+          "frontend/src/components/ProfileSetupModal.tsx",
+          "frontend/src/App.tsx",
+          "frontend/src/utils/urlParams.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/ProfileSetupModal.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-14",
+        "summary": "Fix the role selection UI in the ProfileSetupModal so that users can reliably choose between 'Attendee' (standard user) and 'Organizer' roles. The role selector must be fully interactive — clicking either option must visually highlight the selection and persist the chosen value on form submission. Ensure there are no JavaScript errors or unresponsive click handlers blocking the selection.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/ProfileSetupModal.tsx",
+          "frontend/src/pages/OrganizerDashboardPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/ProfileSetupModal.tsx"
+        ]
+      },
+      {
+        "id": "REQ-15",
+        "summary": "Audit and resolve all frontend runtime errors visible in the browser console related to authentication flow, profile setup, and role-based routing. This includes fixing any broken imports, undefined variable accesses, failed actor calls during initialization, and unhandled promise rejections in the login/profile/redirect pipeline.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useGetCallerUserProfile.ts",
+          "frontend/src/hooks/useActor.ts",
+          "frontend/src/components/ProtectedRoute.tsx",
+          "frontend/src/components/RoleGuard.tsx",
+          "frontend/src/App.tsx",
+          "frontend/src/main.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/ProtectedRoute.tsx",
+          "frontend/src/App.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "build-request.json",
+    "build-template/README.md",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/App.tsx",
+    "frontend/src/components/EventCreationForm.tsx",
+    "frontend/src/components/ProfileSetupModal.tsx",
+    "frontend/src/components/ProtectedRoute.tsx",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/pages/HomePage.tsx",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

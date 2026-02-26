@@ -1,0 +1,11 @@
+{
+  "frontend/src/hooks/useQueries.ts": "All React Query hooks for backend interactions including user profile, events, tickets, and admin operations with proper actor-ready guards and cache invalidation.",
+  "frontend/src/pages/AdminDashboardPage.tsx": "Admin-only dashboard page with tabs for pending event approval/rejection, user management table, and ticket sales summary with revenue totals. Wrapped with ProtectedRoute and RoleGuard requiring admin role.",
+  "frontend/src/pages/TouristModePage.tsx": "Tourist Mode page with three sections — Recommended for Visitors (featured events), Cultural Experiences (culture + festivals categories merged), and Popular This Week (top 5 by tickets sold). Includes a Gambia info card and a vibrant hero section.",
+  "frontend/src/pages/UserProfilePage.tsx": "User profile page showing the authenticated user's display name, role badge, join date, and all booked tickets with QR code previews and full digital ticket view dialogs. Wrapped with ProtectedRoute.",
+  "frontend/src/components/ProfileSetupModal.tsx": "Profile setup modal with fixed role selection using interactive card buttons (Attendee/Organizer) with visual highlight, both mapping to UserRole.user. Accepts an onComplete callback that fires after successful profile save to trigger post-login redirect.",
+  "frontend/src/components/ProtectedRoute.tsx": "Route guard component that shows a spinner while auth/actor is initializing, an access-denied message if unauthenticated, or renders children when authenticated.",
+  "frontend/src/App.tsx": "Main app with TanStack Router, QueryClient, and ThemeProvider. Imports `EventDetailsPage` (correct filename), defines routes including `/tourist` (not `/tourist-mode`), and handles auto-redirect after login and profile setup modal.",
+  "frontend/src/components/EventCreationForm.tsx": "Event creation form that passes a named `CreateEventParams` object (not an array) to `useCreateEvent`, fixing the TypeScript type mismatch.",
+  "frontend/src/pages/HomePage.tsx": "Home page with hero banner, event grid, category/city/date filters. Updated the Tourist Mode link from `/tourist-mode` to `/tourist` to match the registered route."
+}

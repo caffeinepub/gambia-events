@@ -1,0 +1,102 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Fix post-login auto-redirect and role selection in profile setup",
+  "requirements": [
+    {
+      "id": "REQ-13",
+      "summary": "Auto-redirect users after Internet Identity login to homepage or profile setup, then to homepage after profile completion",
+      "acceptanceCriteria": [
+        "After successful Internet Identity login, the user is automatically redirected to the homepage without manual action.",
+        "If the user has no profile yet, they are redirected to the profile setup modal/flow first, then to the homepage after completing setup.",
+        "The redirect happens reliably every time login completes, with no stuck loading states."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useInternetIdentity.ts",
+          "operation": "modify",
+          "description": "Add post-login redirect logic to the login function. After successful authentication, store the intended destination URL (from URL params or default to homepage), then navigate to it. Integrate with useGetCallerUserProfile to detect profile status and trigger profile setup modal if needed before final redirect. Ensure redirect happens after actor initialization completes to avoid race conditions."
+        },
+        {
+          "path": "frontend/src/components/ProfileSetupModal.tsx",
+          "operation": "modify",
+          "description": "Add onProfileSaved callback prop that triggers navigation to the homepage (or stored intended destination) after successful profile creation. Ensure modal closes and redirect executes immediately after the saveCallerUserProfile mutation succeeds. Wire this callback from the parent component (App.tsx) that manages the modal visibility state."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Update ProfileSetupModal usage to pass a callback that navigates to the homepage after profile setup completes. Ensure the redirect only fires when profile creation succeeds, not on modal dismissal. Add URL parameter handling to restore the user's originally intended destination if they were redirected to login from a protected route."
+        },
+        {
+          "path": "frontend/src/utils/urlParams.ts",
+          "operation": "modify",
+          "description": "Add utility functions to save and retrieve the intended destination URL before login redirect. Store the destination in sessionStorage when a protected route redirects to login, then retrieve and clear it after successful authentication to enable seamless return-to-origin navigation."
+        }
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "summary": "Fix role selection UI in ProfileSetupModal to make Attendee and Organizer options fully interactive and persistent",
+      "acceptanceCriteria": [
+        "Both 'Attendee' and 'Organizer' role options are visible and clickable in the profile setup modal.",
+        "Clicking a role option visually highlights it as selected and stores the chosen role in component state.",
+        "Submitting the form saves the correct chosen role to the backend profile.",
+        "After saving with the 'Organizer' role, the user has access to the Organizer Dashboard.",
+        "After saving with the 'Attendee' role, the user is treated as a standard user."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ProfileSetupModal.tsx",
+          "operation": "modify",
+          "description": "Fix the role selection input component. Ensure both 'Attendee' and 'Organizer' role buttons are properly wired to the form state using controlled input patterns (value and onChange). Add visual feedback for the selected role (highlighted border, background color, or checkmark). Map 'Attendee' to UserRole.user and 'Organizer' to UserRole.user (organizer status is determined by event creation capability, not a separate backend role). Verify click handlers are not blocked by event propagation issues or overlapping elements. Add console logging during development to confirm state updates on each click."
+        },
+        {
+          "path": "frontend/src/pages/OrganizerDashboardPage.tsx",
+          "operation": "modify",
+          "description": "Ensure the organizer dashboard is accessible to all authenticated users (role: user) who have created events, not gated by a separate 'organizer' role. Update any RoleGuard usage to check for UserRole.user instead of a non-existent organizer enum value. Users who select 'Organizer' during profile setup should be able to access this page immediately after profile creation."
+        }
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "summary": "Audit and resolve all frontend runtime errors in authentication, profile setup, and role-based routing flows",
+      "acceptanceCriteria": [
+        "No unhandled JavaScript errors appear in the browser console during the login → profile setup → homepage flow.",
+        "The app does not show a blank screen or stuck spinner after login.",
+        "All route guards (ProtectedRoute, RoleGuard) correctly evaluate authentication and role state after login without false negatives."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useGetCallerUserProfile.ts",
+          "operation": "modify",
+          "description": "Add error boundary handling for failed profile fetch attempts during login. Ensure the hook properly handles null actor states and returns consistent loading/error states that prevent the profile setup modal from flashing or getting stuck. Add retry logic if the actor is not yet ready when the query first runs. Verify the enabled flag properly waits for both actor and actorFetching state to stabilize."
+        },
+        {
+          "path": "frontend/src/hooks/useActor.ts",
+          "operation": "modify",
+          "description": "Review actor initialization sequence and ensure no unhandled promise rejections occur during identity transitions (login/logout). Add error handling for actor creation failures and ensure React Query cache invalidation completes before dependent queries re-run. Log actor lifecycle events (creation, invalidation) to console during development to diagnose initialization race conditions."
+        },
+        {
+          "path": "frontend/src/components/ProtectedRoute.tsx",
+          "operation": "modify",
+          "description": "Fix route guard logic to properly wait for both authentication and profile initialization before rendering children or login prompt. Add loading state that shows a spinner while actor and profile queries are pending. Prevent false negatives where authenticated users see a login screen due to stale query state. Add defensive checks for edge cases (e.g., actor exists but profile query hasn't run yet)."
+        },
+        {
+          "path": "frontend/src/components/RoleGuard.tsx",
+          "operation": "modify",
+          "description": "Update role check logic to handle cases where the profile query is still loading or has failed. Show a loading spinner instead of access-denied message during profile fetch. Add error recovery UI if profile fetch fails, prompting the user to retry or logout. Ensure the guard does not block access due to race conditions between authentication state and profile query completion."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Audit ProfileSetupModal visibility logic to prevent flashing when the profile query result changes. Use the isFetched flag from useGetCallerUserProfile to ensure modal only shows after the profile query has definitively completed (not just when data is null). Add safeguards to prevent modal from reopening if the user dismisses it or completes profile setup. Add error boundary around router and modal to catch unhandled errors during navigation or profile operations."
+        },
+        {
+          "path": "frontend/src/main.tsx",
+          "operation": "modify",
+          "description": "Add global error boundary component wrapping the entire app to catch and display unhandled runtime errors gracefully. Include a 'Reload' button in the error fallback UI. Add console logging for all uncaught errors to aid debugging. Ensure QueryClientProvider and InternetIdentityProvider initialization order does not cause race conditions during app startup."
+        }
+      ]
+    }
+  ]
+}

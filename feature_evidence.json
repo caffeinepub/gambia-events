@@ -1,0 +1,73 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-after-a-user-completes-internet-identity-login-automatically-redirect-them-to-the-homepage-or-their-originally-intended-destination-without-requiring-any-manual-navigation-step-if-the-user-is-new-and-has-no-profile-yet-redirect-to-the-profile-setup-flow-first-then-to-the-homepage-after-profile-completion",
+      "featureTitle": "After a user completes Internet Identity login, automatically redirect them to the homepage (or their originally intended destination) without requiring any manual navigation step. If the user is new and has no profile yet, redirect to the profile setup flow first, then to the homepage after profile completion.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/ProfileSetupModal.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "qr-code@1.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "camera@1.0.0"
+      ],
+      "testIds": [
+        "REQ-13"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-fix-the-role-selection-ui-in-the-profilesetupmodal-so-that-users-can-reliably-choose-between-attendee-standard-user-and-organizer-roles-the-role-selector-must-be-fully-interactive-clicking-either-option-must-visually-highlight-the-selection-and-persist-the-chosen-value-on-form-submission-ensure-there-are-no-javascript-errors-or-unresponsive-click-handlers-blocking-the-selection",
+      "featureTitle": "Fix the role selection UI in the ProfileSetupModal so that users can reliably choose between 'Attendee' (standard user) and 'Organizer' roles. The role selector must be fully interactive — clicking either option must visually highlight the selection and persist the chosen value on form submission. Ensure there are no JavaScript errors or unresponsive click handlers blocking the selection.",
+      "files": [
+        "frontend/src/components/ProfileSetupModal.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "qr-code@1.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "camera@1.0.0"
+      ],
+      "testIds": [
+        "REQ-14"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-audit-and-resolve-all-frontend-runtime-errors-visible-in-the-browser-console-related-to-authentication-flow-profile-setup-and-role-based-routing-this-includes-fixing-any-broken-imports-undefined-variable-accesses-failed-actor-calls-during-initialization-and-unhandled-promise-rejections-in-the-login-profile-redirect-pipeline",
+      "featureTitle": "Audit and resolve all frontend runtime errors visible in the browser console related to authentication flow, profile setup, and role-based routing. This includes fixing any broken imports, undefined variable accesses, failed actor calls during initialization, and unhandled promise rejections in the login/profile/redirect pipeline.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/ProtectedRoute.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "qr-code@1.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "camera@1.0.0"
+      ],
+      "testIds": [
+        "REQ-15"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

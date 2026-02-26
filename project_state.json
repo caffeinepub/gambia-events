@@ -1,0 +1,204 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 5,
+  "summary": "Gambia Events is a cultural events discovery and ticketing platform for The Gambia, targeting local residents, tourists, event organizers, artists, and promoters. The app supports event discovery by category and location, event creation by organizers, ticket booking with QR codes, mobile money payments, notifications, search, an admin dashboard, and a tourist mode. It features a modern African-inspired UI with dark/light mode optimized for low-bandwidth connections.",
+  "architectural_notes": [
+    "Frontend: React.js (web) + React Native or Flutter (mobile); Backend: Node.js or Firebase; DB: Firebase Firestore or PostgreSQL; Auth: Firebase Auth",
+    "Modern African-inspired UI with dark/light mode, optimized for low-bandwidth connections",
+    "Monetization: ticket commission, featured event promotion, business ads, organizer subscription plans",
+    "Future features: artist profiles, event reviews, social sharing, event videos, QR check-in, offline ticket validation"
+  ],
+  "known_issues": [
+    "Auto-redirect after Google/Apple ID login is not working",
+    "Role selection between organizer and attendee is not functioning after login"
+  ],
+  "isFixRequest": true,
+  "existing_features": [
+    {
+      "id": "feature-implement-internet-identity-based-authentication-with-user-role-support-standard-user-organizer-and-admin-store-user-profiles-in-the-backend-including-display-name-role-and-account-creation-date-allow-users-to-set-up-their-profile-after-first-login",
+      "title": "Implement Internet Identity-based authentication with user role support: standard user, organizer, and admin. Store user profiles in the backend including display name, role, and account creation date. Allow users to set up their profile after first login.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-homepage-event-discovery-screen-display-a-hero-banner-with-app-name-and-tagline-a-horizontally-scrollable-category-pill-row-all-music-festivals-culture-nightlife-comedy-fashion-community-a-filter-bar-with-dropdowns-for-city-and-date-range-and-a-responsive-card-grid-of-upcoming-approved-events-sorted-by-date-each-card-shows-the-event-poster-thumbnail-title-category-badge-date-city-and-ticket-price-or-free",
+      "title": "Build the Homepage (Event Discovery) screen. Display a hero banner with app name and tagline, a horizontally scrollable category pill row (All, Music, Festivals, Culture, Nightlife, Comedy, Fashion, Community), a filter bar with dropdowns for City and Date range, and a responsive card grid of upcoming approved events sorted by date. Each card shows the event poster thumbnail, title, category badge, date, city, and ticket price (or 'Free').",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-event-details-page-display-the-full-event-poster-image-at-the-top-then-the-event-title-category-badge-date-and-time-city-and-location-address-full-description-ticket-price-gmd-organizer-name-and-a-book-ticket-call-to-action-button-include-a-share-event-button-that-copies-the-event-url-to-the-clipboard-show-a-static-map-placeholder-displaying-the-location-text",
+      "title": "Build the Event Details page. Display the full event poster image at the top, then the event title, category badge, date and time, city and location address, full description, ticket price (GMD), organizer name, and a 'Book Ticket' call-to-action button. Include a 'Share Event' button that copies the event URL to the clipboard. Show a static map placeholder displaying the location text.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-organizer-dashboard-accessible-only-to-users-with-the-organizer-role-provide-an-event-creation-form-with-fields-title-description-category-selector-city-selector-date-time-picker-location-text-ticket-price-gmd-ticket-quantity-and-event-poster-image-upload-stored-as-a-data-url-or-asset-url-on-submission-create-an-event-record-with-status-pending-list-the-organizer-s-own-events-with-their-current-status-pending-approved-rejected",
+      "title": "Implement the Organizer Dashboard accessible only to users with the organizer role. Provide an event creation form with fields: title, description, category selector, city selector, date/time picker, location text, ticket price (GMD), ticket quantity, and event poster image upload (stored as a data URL or asset URL). On submission, create an event record with status 'pending'. List the organizer's own events with their current status (pending/approved/rejected).",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-ticket-booking-system-when-a-user-clicks-book-ticket-on-an-event-show-a-booking-modal-that-displays-event-summary-quantity-selector-up-to-available-tickets-and-a-payment-method-selector-wave-africell-money-qmoney-cash-on-confirmation-create-a-ticket-record-in-the-backend-with-fields-ticketid-eventid-userid-quantity-paymentmethod-paymentstatus-confirmed-for-mobile-money-simulation-pending-for-cash-and-a-unique-booking-code-decrement-ticketsremaining-on-the-event-display-the-booking-code-as-a-qr-code-in-a-digital-ticket-view-store-the-ticket-in-the-user-s-profile",
+      "title": "Implement the Ticket Booking System. When a user clicks 'Book Ticket' on an event, show a booking modal that displays event summary, quantity selector (up to available tickets), and a payment method selector (Wave, Africell Money, QMoney, Cash). On confirmation, create a ticket record in the backend with fields: ticketId, eventId, userId, quantity, paymentMethod, paymentStatus (confirmed for mobile money simulation, pending for cash), and a unique booking code. Decrement ticketsRemaining on the event. Display the booking code as a QR code in a digital ticket view. Store the ticket in the user's profile.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-global-search-feature-provide-a-search-bar-accessible-from-the-navigation-header-search-queries-the-backend-for-events-whose-title-description-or-city-contains-the-search-term-case-insensitive-display-results-in-a-list-view-with-the-same-event-card-format-used-on-the-homepage",
+      "title": "Build the global Search feature. Provide a search bar accessible from the navigation header. Search queries the backend for events whose title, description, or city contains the search term (case-insensitive). Display results in a list view with the same event card format used on the homepage.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-admin-dashboard-accessible-only-to-users-with-the-admin-role-display-1-a-list-of-pending-events-with-approve-and-reject-buttons-2-a-list-of-all-users-with-their-roles-3-a-ticket-sales-summary-showing-total-tickets-sold-and-revenue-by-event-and-4-basic-analytics-total-events-total-users-total-tickets-sold",
+      "title": "Build the Admin Dashboard accessible only to users with the admin role. Display: (1) a list of pending events with Approve and Reject buttons, (2) a list of all users with their roles, (3) a ticket sales summary showing total tickets sold and revenue by event, and (4) basic analytics: total events, total users, total tickets sold.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-tourist-mode-section-as-a-dedicated-page-or-tab-display-a-curated-cultural-experiences-section-showing-events-in-the-culture-and-festivals-categories-a-popular-this-week-section-showing-the-most-booked-upcoming-events-and-a-recommended-for-visitors-section-featuring-featured-events-add-a-tourist-mode-entry-in-the-navigation",
+      "title": "Build the Tourist Mode section as a dedicated page or tab. Display: a curated 'Cultural Experiences' section showing events in the Culture and Festivals categories, a 'Popular This Week' section showing the most-booked upcoming events, and a 'Recommended for Visitors' section featuring featured events. Add a 'Tourist Mode' entry in the navigation.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-user-profile-page-display-the-user-s-name-role-badge-and-list-of-their-purchased-booked-tickets-each-ticket-entry-shows-event-name-date-booking-code-and-a-rendered-qr-code-include-a-button-to-view-the-full-digital-ticket",
+      "title": "Build the User Profile page. Display the user's name, role badge, and list of their purchased/booked tickets. Each ticket entry shows event name, date, booking code, and a rendered QR code. Include a button to view the full digital ticket.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-modern-african-inspired-visual-theme-consistently-across-the-entire-application-use-a-warm-earth-tone-and-vibrant-accent-color-palette-e-g-rich-terracotta-golden-yellow-deep-forest-green-warm-cream-evoking-west-african-culture-use-bold-modern-typography-support-a-dark-mode-and-light-mode-toggle-accessible-from-the-navigation-optimize-layout-for-mobile-first-with-touch-friendly-tap-targets-and-a-bottom-navigation-bar-on-mobile-viewports",
+      "title": "Apply a modern African-inspired visual theme consistently across the entire application. Use a warm earth-tone and vibrant accent color palette (e.g., rich terracotta, golden yellow, deep forest green, warm cream) evoking West African culture. Use bold, modern typography. Support a dark mode and light mode toggle accessible from the navigation. Optimize layout for mobile-first with touch-friendly tap targets and a bottom navigation bar on mobile viewports.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-a-hero-banner-image-for-the-homepage-with-a-vibrant-african-cultural-celebration-scene-colorful-traditional-fabrics-outdoor-festival-atmosphere-warm-sunset-lighting-crowd-energy-also-generate-an-app-logo-mark-a-stylized-drum-or-flame-icon-in-terracotta-and-gold",
+      "title": "Generate a hero banner image for the homepage with a vibrant African cultural celebration scene — colorful traditional fabrics, outdoor festival atmosphere, warm sunset lighting, crowd energy. Also generate an app logo mark: a stylized drum or flame icon in terracotta and gold.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-after-a-user-completes-internet-identity-login-automatically-redirect-them-to-the-homepage-or-their-originally-intended-destination-without-requiring-any-manual-navigation-step-if-the-user-is-new-and-has-no-profile-yet-redirect-to-the-profile-setup-flow-first-then-to-the-homepage-after-profile-completion",
+      "title": "After a user completes Internet Identity login, automatically redirect them to the homepage (or their originally intended destination) without requiring any manual navigation step. If the user is new and has no profile yet, redirect to the profile setup flow first, then to the homepage after profile completion.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-role-selection-ui-in-the-profilesetupmodal-so-that-users-can-reliably-choose-between-attendee-standard-user-and-organizer-roles-the-role-selector-must-be-fully-interactive-clicking-either-option-must-visually-highlight-the-selection-and-persist-the-chosen-value-on-form-submission-ensure-there-are-no-javascript-errors-or-unresponsive-click-handlers-blocking-the-selection",
+      "title": "Fix the role selection UI in the ProfileSetupModal so that users can reliably choose between 'Attendee' (standard user) and 'Organizer' roles. The role selector must be fully interactive — clicking either option must visually highlight the selection and persist the chosen value on form submission. Ensure there are no JavaScript errors or unresponsive click handlers blocking the selection.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-audit-and-resolve-all-frontend-runtime-errors-visible-in-the-browser-console-related-to-authentication-flow-profile-setup-and-role-based-routing-this-includes-fixing-any-broken-imports-undefined-variable-accesses-failed-actor-calls-during-initialization-and-unhandled-promise-rejections-in-the-login-profile-redirect-pipeline",
+      "title": "Audit and resolve all frontend runtime errors visible in the browser console related to authentication flow, profile setup, and role-based routing. This includes fixing any broken imports, undefined variable accesses, failed actor calls during initialization, and unhandled promise rejections in the login/profile/redirect pipeline.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "User Authentication: email, phone, Google sign-up; user profiles; organizer accounts",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Event Discovery: homepage with upcoming events, category browsing, and filters by city/date/price/type",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Event Details Page: poster, description, date/time, map location, ticket price, organizer info, share button",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Organizer Dashboard: event creation with poster upload, details, ticket price/quantity, location, publish",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Ticket Booking System: reserve/buy tickets, QR code generation, digital tickets in user profile",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Payments Integration: Wave, Africell Money, QMoney mobile money; cash option; payment confirmation",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Notifications: event reminders, nearby new events, ticket confirmation alerts",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Search System: search events by name, artist, or location",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Admin Dashboard: event approval, user management, ticket sales view, fake event removal, analytics",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Tourist Mode: highlighted cultural experiences, popular weekly events, visitor recommendations",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Define the core Event data model in the backend with fields: id, title, description, category (Music | Festivals | Culture | Nightlife | Comedy | Fashion | Community), city (Banjul | Serrekunda | Bakau | Brikama | Other), date/time, location text, ticketPrice (in GMD), ticketQuantity, ticketsRemaining, organizerId, posterImageUrl, isFeatured, status (pending | approved | rejected), and createdAt. Expose query functions to list all approved events, list by category, list by city, and get a single event by ID.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Gambia Events",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

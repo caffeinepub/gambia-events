@@ -1,0 +1,77 @@
+{
+  "kind": "build_request",
+  "title": "Fix post-login auto-redirect and role selection in profile setup",
+  "projectName": "Gambia Events",
+  "priority": "high",
+  "requirements": [
+    {
+      "id": "REQ-13",
+      "text": "After a user completes Internet Identity login, automatically redirect them to the homepage (or their originally intended destination) without requiring any manual navigation step. If the user is new and has no profile yet, redirect to the profile setup flow first, then to the homepage after profile completion.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-latest"
+        ],
+        "quotes": [
+          "let the user be auto redirect after google or apple id login"
+        ]
+      },
+      "acceptanceCriteria": [
+        "After successful Internet Identity login, the user is automatically redirected to the homepage without manual action.",
+        "If the user has no profile yet, they are redirected to the profile setup modal/flow first, then to the homepage after completing setup.",
+        "The redirect happens reliably every time login completes, with no stuck loading states."
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "text": "Fix the role selection UI in the ProfileSetupModal so that users can reliably choose between 'Attendee' (standard user) and 'Organizer' roles. The role selector must be fully interactive — clicking either option must visually highlight the selection and persist the chosen value on form submission. Ensure there are no JavaScript errors or unresponsive click handlers blocking the selection.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-latest"
+        ],
+        "quotes": [
+          "i am not able to select between organizer to attendee, its not working"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Both 'Attendee' and 'Organizer' role options are visible and clickable in the profile setup modal.",
+        "Clicking a role option visually highlights it as selected and stores the chosen role in component state.",
+        "Submitting the form saves the correct chosen role to the backend profile.",
+        "After saving with the 'Organizer' role, the user has access to the Organizer Dashboard.",
+        "After saving with the 'Attendee' role, the user is treated as a standard user."
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "text": "Audit and resolve all frontend runtime errors visible in the browser console related to authentication flow, profile setup, and role-based routing. This includes fixing any broken imports, undefined variable accesses, failed actor calls during initialization, and unhandled promise rejections in the login/profile/redirect pipeline.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-latest"
+        ],
+        "quotes": [
+          "fix all errors"
+        ]
+      },
+      "acceptanceCriteria": [
+        "No unhandled JavaScript errors appear in the browser console during the login → profile setup → homepage flow.",
+        "The app does not show a blank screen or stuck spinner after login.",
+        "All route guards (ProtectedRoute, RoleGuard) correctly evaluate authentication and role state after login without false negatives."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not modify files under frontend/src/hooks/useInternetIdentity.ts or frontend/src/hooks/useActor.ts — these are immutable.",
+    "Do not change the backend data model or existing Motoko actor functions."
+  ],
+  "nonGoals": [
+    "Adding Google or Apple OAuth — the platform uses Internet Identity only.",
+    "Adding new roles beyond attendee, organizer, and admin.",
+    "Changes to event creation, booking, or admin dashboard features."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}
